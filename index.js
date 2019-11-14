@@ -120,6 +120,18 @@ speak(){
   return `hello my name is ${this.name}, I am from ${this.location}`;
   }
 }
+class Person {
+  constructor(personAttrs) {
+      this.name = personAttrs.name;
+      this.age = personAttrs.age;
+      this.location = personAttrs.location;
+      this.gender = personAttrs.gender;
+  }
+
+  speak() {
+      return `Hello my name is ${this.name}, I am from ${this.location}`;
+  }
+}
 
 /*
   TASK 4
@@ -148,6 +160,30 @@ class Instructor extends Lambdasian {
   grade(student, subject){
     return `${student.name} receives a perfect score on ${subject}`;
   }
+  class Instructor extends Person {
+    constructor(instructorAttrs) {
+        super(instructorAttrs);
+        this.specialty = instructorAttrs.specialty;
+        this.favLanguage = instructorAttrs.favLanguage;
+        this.catchPhrase = instructorAttrs.catchPhrase;
+    }
+
+    demo(subject) {
+        return `Today we are learning about ${subject}`;
+    }
+
+    grade(student, subject) {
+        return `${student.name} receives a perfect score on ${subject}`
+    }
+    adjustGrade(student) {
+    let points = Math.round(Math.random() * 100);
+    if (student.grade >= 100) {
+        student.grade -= points;
+        return `${points} points are subtracted from ${student.name}'s grade.  ${student.name}'s current grade is ${student.grade}`;
+    } else {
+        student.grade += points;
+        return `${points} points are added to ${student.name}'s grade.  ${student.name}'s current grade is ${student.grade}`;
+    }
 }
 
 /*
@@ -181,6 +217,37 @@ class Student extends Instructor{
   sprintChallenge(subject) {
     return `${this.name} has begun sprint challenge on ${subject}`;
   }
+  
+  class Student extends Person {
+    constructor(studentAttrs) {
+        super(studentAttrs);
+        this.previousBackground = studentAttrs.previousBackground;
+        this.className = studentAttrs.className;
+        this.favSubjects = studentAttrs.favSubjects;
+        this.grade = studentAttrs.grade;
+    }
+
+    listsSubjects() {
+        this.favSubjects.map(item => console.log(item));
+    }
+
+    PRAssignment(subject) {
+        return `${this.name} has submitted a PR for ${subject}`;
+    }
+
+    sprintChallenge(subject) {
+        return `${this.name} has begun sprint challenge on ${subject}`;
+    }
+ 
+    graduate() {
+    if (this.grade >= 70) {
+        return `${this.name} has graduated with a final grade of ${this.grade}!`;
+    } else {
+        let diff = 70 - this.grade;
+        this.grade += diff;
+        return `After more grading, ${diff} points were earned and ${this.name} has graduated with a final grade of ${this.grade}!`;
+    }
+  }
 }
 
 /*
@@ -210,6 +277,90 @@ class ProjectManager extends Student{
   }
 }
 
+class ProjectManager extends Instructor {
+  constructor(managerAttrs) {
+      super(managerAttrs);
+      this.gradClassName = managerAttrs.gradClassName;
+      this.favInstructor = managerAttrs.favInstructor;
+  }
+
+  standUp(channel) {
+      return `${this.name} announces to ${channel}, @channel standy times!`;
+  }
+
+  debugsCode(student, subject) {
+      return `${this.name} debugs ${student.name}'s code on ${subject}`;
+    } 
+  } 
+
+const arash = new Instructor({
+  name: "arash",
+  location: "detroit",
+  age: 37,
+  gender: "male",
+  favLanguage: "html",
+  specialty: "css",
+  catchPhrase: `was up`
+});
+
+const nick = new Instructor({
+  name: "nick",
+  location: "long-beach",
+  age: 31,
+  gender: "male",
+  favLanguage: "react",
+  specialty: "Fullstack",
+  catchPhrase: `how is it going`
+});
+
+const Leila = new Student({
+  name: "Leila",
+  location: "new hudson",
+  age: 28,
+  gender: "female",
+  favSubjects: ["python", "C++"],
+  grade: 100
+});
+
+const ammon = new Student({
+  name: "ammon",
+  location: "idaho",
+  age: 31,
+  gender: "male",
+  favSubjects: ["c", "react"],
+  grade: 100
+});
+
+const chad = new ProjectManager({
+  name: "chad",
+  location: "utha",
+  age: 23,
+  gender: "male",
+  gradClassName: "wb26"
+});
+
+const dave = new ProjectManager({
+  name: "dave",
+  location: "ohio",
+  age: 40,
+  gender: "male",
+  gradClassName: "wb26"
+});
+
+console.log(dave.speak());
+console.log(ammon.listsSubjects());
+console.log(chad.gender);
+console.log(dave.debugsCode(ammon, "c"));
+console.log(ammon.standUp("web26"));
+console.log(Leila.sprintChallenge("python"));
+console.log(nick.demo("React"));
+console.log(Leila.grade(ammon, "C"));
+console.log(nick.speak());
+console.log(chad.PRAssignment("react"));
+console.log(steve.catchPhrase);
+console.log(dave.adjustGrade(ammon));
+console.log(Leila.graduate(ned)); 
+
 /*
   STRETCH PROBLEM (no tests!)
     - Extend the functionality of the Student by adding a prop called grade and setting it equal to a number between 1-100.
@@ -218,6 +369,7 @@ class ProjectManager extends Student{
       + This method, when called, will check the grade of the student and see if they're ready to graduate from Lambda School
       + If the student's grade is above a 70% let them graduate! Otherwise go back to grading their assignments to increase their score.
 */
+
 
 ///////// END OF CHALLENGE /////////
 ///////// END OF CHALLENGE /////////
